@@ -28,20 +28,22 @@ var svg_multi = d3.select("#state").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var select_state = "California";
-var select_party = "Republicans";
-var Florida_data, NewYork_data, Ohio_data, Wisconsin_data, Nevada_data, California_data;
+var data_values;
 
 queue()
-    .defer(d3.csv, "data/Florida_Results.csv")
-    .defer(d3.csv, "data/NewYork_Results.csv")
-    .defer(d3.csv, "data/Ohio_Results.csv")
-    .defer(d3.csv, "data/Wisconsin_Results.csv")
-    .defer(d3.csv, "data/Nevada_Results.csv")
-    .defer(d3.csv, "data/California_Results.csv")
-    .await(function(error, Florida, NewYork, Ohio, Wisconsin, Nevada, California) {
+    .defer(d3.csv, "data/breitbart_nonpolitical.csv")
+    .defer(d3.csv, "data/breitbart_political.csv")
+    .defer(d3.csv, "data/cnn_nonpolitical.csv")
+    .defer(d3.csv, "data/cnn_political.csv")
+    .defer(d3.csv, "data/fox_nonpolitical.csv")
+    .defer(d3.csv, "data/fox_political.csv")
+    .defer(d3.csv, "data/nyt_nonpolitical.csv")
+    .defer(d3.csv, "data/nyt_political.csv")
+    .defer(d3.csv, "data/wsj_nonpolitical.csv")
+    .defer(d3.csv, "data/wsj_political.csv")
+    .await(function(error, bb_n, bb_p, cnn_n, cnn_p, fox_n, fox_p, nyt_n, nyt_p, wsj_n, wsj_p) {
 
-        var data_array = [Florida, NewYork, Ohio, Wisconsin, Nevada, California];
+        data_array = [bb_n, bb_p, cnn_n, cnn_p, fox_n, fox_p, nyt_n, nyt_p, wsj_n, wsj_p];
         // parse dates
         function changeDates(item) {
             item.forEach(function(d) {
@@ -67,60 +69,39 @@ queue()
             .style("text-anchor", "end")
             .text("Percentage of political tweets");
 
-        Florida_data = Florida;
-        NewYork_data = NewYork;
-        Ohio_data = Ohio;
-        Wisconsin_data = Wisconsin;
-        Nevada_data = Nevada;
-        California_data = California;
+        data_values = {
+          "bb_n": bb_n,
+          "bb_p": bb_p,
+          "cnn_n": cnn_n,
+          "cnn_p": cnn_p,
+          "fox_n": fox_n,
+          "fox_p": fox_p,
+          "nyt_n": nyt_n,
+          "nyt_p": nyt_p,
+          "wsj_n": wsj_n,
+          "wsj_p": wsj_p
+        };
 
         // Update visualization when ready
-        updateVisualization("Republicans");
+        updateVisualization();
     });
 
 var data;
 
-function updateVisualization(party) {
-    console.log(party);
+function updateVisualization() {
     // Get the user-selected state
     select_state = d3.select("#select-box").property("value");
     console.log(select_state);
     // Get appropriate dataset for that state
-    switch (select_state) {
-        case "Florida":
-            data = Florida_data;
-            break;
-        case "NewYork":
-            data = NewYork_data;
-            break;
-        case "Ohio":
-            data = Ohio_data;
-            break;
-        case "Wisconsin":
-            data = Wisconsin_data;
-            break;
-        case "Nevada":
-            data = Nevada_data;
-            break;
-        case "California":
-            data = California_data;
-            break;
-    }
+    data = data_values[select_state]
 
-    // Get the user-selected party
-    // select_party = d3.select('input[name="party"]:checked').node().value;
-    select_party = party;
-
-    color.domain(d3.keys(data[0]).filter(function(key) {
-        if (select_party == "Republicans") {
-            return ((key !== "Date") && (key !== "Sanders") && (key !== "Clinton"));
-        } else {
-            return ((key !== "Date") && (key !== "Cruz") && (key !== "Rubio") && (key !== "Trump") && (key !== "Kasich"));
-        }
-    }));
     console.log(data);
 
     data = data.sort(function (a,b) {return d3.ascending(a.Date, b.Date); });
+
+    color.domain(d3.keys(data[0]).filter(function(key) {
+        return (key !== "Date");
+    }));
 
     var people = color.domain().map(function(name) {
         return {
@@ -165,10 +146,6 @@ function updateVisualization(party) {
     var personGroups = person.enter()
         .append("g")
         .attr("class", "candidate");
-
-    //person
-    //    .enter().append("g")
-    //    .attr("class", "candidate");
 
     personGroups.append("path")
         .attr("class", "line")

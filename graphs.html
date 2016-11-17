@@ -41,27 +41,21 @@
     <div class="container-fluid">
         <form class="form-inline">
             <div class="form-group">
-                <label for="rankingType">Choose state: </label>
+                <label for="rankingType">Choose news source: </label>
                 <select class="form-control" id="select-box" onchange="updateVisualization()">
-                    <option value="California">California</option>
-                    <option value="Florida">Florida</option>
-                    <option value="Ohio">Ohio</option>
-                    <option value="Wisconsin">Wisconsin</option>
-                    <option value="Nevada">Nevada</option>
-                    <option value="NewYork">New York</option>
+                    <option value="bb_n">Breitart Non-Political</option>
+                    <option value="bb_p">Breitart Political</option>
+                    <option value="cnn_n">CNN Non-Political</option>
+                    <option value="cnn_p">CNN Political</option>
+                    <option value="fox_n">Fox Non-Political</option>
+                    <option value="fox_p">Fox Political</option>
+                    <option value="nyt_n">NYT Non-Political</option>
+                    <option value="nyt_p">NYT Political</option>
+                    <option value="wsj_n">WSJ Non-Political</option>
+                    <option value="wsj_p">WSJ Political</option>
                 </select>
             </div>
         </form>
-        <button type="button" class="btn btn-default btn-lg" id="gop" onclick="updateVisualization('Republicans')">Republicans</button>
-        <button type="button" class="btn btn-default btn-lg" id="dem" onclick="updateVisualization('Democrats')">Democrats</button>
-        <!-- <form class="form-inline" action="" id="party" onchange="updateVisualization()">
-            <div class="radio">
-                <label><input type="radio" name="party" value="Republicans" checked="checked">Republicans</label>
-            </div>
-            <div class="radio">
-                <label><input type="radio" name="party" value="Democrats">Democrats</label>
-            </div>
-        </form> -->
         <div id="state"></div>
     </div>
 
