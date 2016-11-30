@@ -41,9 +41,9 @@ queue()
     .defer(d3.csv, "data/nyt_political.csv")
     .defer(d3.csv, "data/wsj_nonpolitical.csv")
     .defer(d3.csv, "data/wsj_political.csv")
-    .await(function(error, bb_n, bb_p, cnn_n, cnn_p, fox_n, fox_p, nyt_n, nyt_p, wsj_n, wsj_p) {
-
-        data_array = [bb_n, bb_p, cnn_n, cnn_p, fox_n, fox_p, nyt_n, nyt_p, wsj_n, wsj_p];
+    .defer(d3.csv, "data/tweets_sentiment_count.csv")
+    .await(function(error, bb_n, bb_p, cnn_n, cnn_p, fox_n, fox_p, nyt_n, nyt_p, wsj_n, wsj_p, sent) {
+        data_array = [bb_n, bb_p, cnn_n, cnn_p, fox_n, fox_p, nyt_n, nyt_p, wsj_n, wsj_p, sent];
         // parse dates
         function changeDates(item) {
             item.forEach(function(d) {
@@ -79,7 +79,8 @@ queue()
           "nyt_n": nyt_n,
           "nyt_p": nyt_p,
           "wsj_n": wsj_n,
-          "wsj_p": wsj_p
+          "wsj_p": wsj_p,
+          "sent": sent
         };
 
         // Update visualization when ready
