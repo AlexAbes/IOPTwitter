@@ -67,7 +67,7 @@ queue()
             .attr("y", 6)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
-            .text(window.y_axis_title || "Percentage of tweets");
+            .text(window.y_axis_title || "Percentage of news headlines");
 
         data_values = {
           "bb_n": bb_n,
