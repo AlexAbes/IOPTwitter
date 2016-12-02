@@ -139,7 +139,7 @@ function updateVisualization() {
         .call(xAxis);
 
     var line = d3.svg.line()
-        .interpolate("basis")
+        .interpolate("bundle")
         .x(function(d) { return x(d.Date); })
         .y(function(d) { return y(d.candidate); });
 
