@@ -67,7 +67,7 @@ queue()
             .attr("y", 6)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
-            .text("Percentage of political tweets");
+            .text("Percentage of tweets");
 
         data_values = {
           "bb_n": bb_n,
@@ -93,7 +93,11 @@ function updateVisualization() {
     // Get the user-selected state
     select_state = d3.select("#select-box").property("value");
     console.log(select_state);
+
     // Get appropriate dataset for that state
+    if (select_state != "sent") {
+      select_state = select_state + "_" + d3.select("#select-box-political").property("value");
+    }
     data = data_values[select_state]
 
     console.log(data);

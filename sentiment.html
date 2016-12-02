@@ -27,8 +27,8 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
                     <ul class="nav navbar-nav">
                         <li><a href="index.html">Home <span class="sr-only">(current)</span></a></li>
-                        <li class="active"><a href="graphs.html">Mentions over time</a></li>
-                        <li><a href="sentiment.html">Sentiment</a></li>
+                        <li><a href="graphs.html">Mentions over time</a></li>
+                        <li class="active"><a href="sentiment.html">Sentiment</a></li>
                         <li><a href="contact.html">Who we are</a></li>
                     </ul>
                 </div>
@@ -39,21 +39,11 @@
         <h1>Twitter Predicts 2016</h1>
     </div>
     <div class="container-fluid">
-        <form class="form-inline">
+        <form class="form-inline" style="display:none">
             <div class="form-group">
                 <label for="rankingType">Choose news source: </label>
                 <select class="form-control" id="select-box" onchange="updateVisualization()">
-                    <option value="bb">Breitbart</option>
-                    <option value="cnn">CNN</option>
-                    <option value="fox">Fox</option>
-                    <option value="nyt">NYT</option>
-                    <option value="wsj">WSJ</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <select class="form-control" id="select-box-political" onchange="updateVisualization()">
-                    <option value="n">Non-Political</option>
-                    <option value="p">Political</option>
+                    <option value="sent">Tweet Sentiment Data</option>
                 </select>
             </div>
         </form>
